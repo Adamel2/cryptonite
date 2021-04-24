@@ -160,16 +160,24 @@ function handleLiveReport() {
 
 }
 function handleMoreInfo(event) {
+    document.getElementById(event.target.id + event.target.id).innerHTML = `<div class=" loading-price text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span>
+    </div>
+  </div>
+  `
+  setTimeout(()=>{
 
-    $.ajax({
-        url: "https://api.coingecko.com/api/v3/coins/" + event.target.id,
-        success: response => {
-            document.getElementById(event.target.id + event.target.id)
-                .innerHTML = `${response.market_data.current_price.usd} $ <br>
-                              ${response.market_data.current_price.eur} € <br>
-                              ${response.market_data.current_price.ils} ₪`
-        }
-    });
+      $.ajax({
+            url: "https://api.coingecko.com/api/v3/coins/" + event.target.id,
+            success: response => {
+                document.getElementById(event.target.id + event.target.id)
+                    .innerHTML = `${response.market_data.current_price.usd} $ <br>
+                                  ${response.market_data.current_price.eur} € <br>
+                                  ${response.market_data.current_price.ils} ₪`
+            }
+        });
+  },1000) 
 
 }
 function handleAboutPage() {

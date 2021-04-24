@@ -1,7 +1,7 @@
 body,
 html {
   height: 100%;
-  width: auto;
+  margin: auto auto;
 }
 .spinner-border{
     text-align: center;
@@ -20,9 +20,18 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.logo
+{
+    width: 150px;
+    height: auto;
+    padding: 1px;
+    margin:1px;
+}
 .child {
-    margin-left: 20px !important;
-    margin-right: 20px !important ;
+    display: inline-block !important;
+    margin: 0 auto !important;
+   padding: 3px !important;
+   width: 100%!important;
 }
 .loading {
     margin-left: auto !important;
@@ -31,9 +40,11 @@ body {
     padding:0 40%;
     margin-top: 300px;
 }
+
 #root {
   position: relative !important;
   min-height: 100vh;
+  padding: 0 0;
 }
 #space-child {
   padding-bottom: 2.5rem;
@@ -67,6 +78,7 @@ li {
 }
 .my-paragraph {
   position: absolute;
+  padding-top: 4px;
 }
 .row {
   position: relative !important;
@@ -78,6 +90,6 @@ li {
   width: 100%;
   text-align: center;
   height: 2.5rem; /* Footer height */
-  padding-right: 15px !important;
-  padding-left: 15px !important ;
+  padding: 0 0;
+  margin: 0 0 ;
 }
