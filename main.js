@@ -18,7 +18,7 @@ function handleList() {
         success: response => {
             for (let index = 0; index < response.length; index++) {
                 document.getElementById("child")
-                    .innerHTML += `<div class="card" style="width: 18rem;">
+                    .innerHTML += `<div id="${response[index].symbol}" class="card" style="width: 18rem;">
                 <div class="card-body">
                 <div class="custom-control custom-switch">
                 <h5 class="card-title"> <img src="${response[index].image}}" />${response[index].symbol}</h5>
@@ -193,6 +193,16 @@ function clearLocalStorage() {
     )
 }
 
-// function search(name){
-
-// }
+function search(){
+    var input = document.getElementById("Search");
+    var filter = input.value.toLowerCase();
+    var nodes = document.getElementsByClassName('card')
+  
+    for (i = 0; i < nodes.length; i++) {
+      if (nodes[i].innerText.toLowerCase().includes(filter)) {
+        nodes[i].style.display = "inline-block";
+      } else {
+        nodes[i].style.display = "none";
+      }
+    }
+}
