@@ -3,8 +3,8 @@ html {
   height: 100%;
   margin: auto auto;
 }
-.spinner-border{
-    text-align: center;
+.spinner-border {
+  text-align: center;
 }
 
 body {
@@ -20,25 +20,24 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.logo
-{
-    width: 150px;
-    height: auto;
-    padding: 1px;
-    margin:1px;
+.logo {
+  width: 150px;
+  height: auto;
+  padding: 1px;
+  margin: 1px;
 }
 .child {
-    display: inline-block !important;
-    margin: 0 auto !important;
-   padding: 3px !important;
-   width: 100%!important;
+  display: inline-block !important;
+  margin: 0 auto !important;
+  padding: 3px !important;
+  width: 100% !important;
 }
 .loading {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    display: inline-block !important;
-    padding:0 40%;
-    margin-top: 300px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: inline-block !important;
+  padding: 0 40%;
+  margin-top: 300px;
 }
 
 #root {
@@ -91,5 +90,5 @@ li {
   text-align: center;
   height: 2.5rem; /* Footer height */
   padding: 0 0;
-  margin: 0 0 ;
+  margin: 0 0;
 }

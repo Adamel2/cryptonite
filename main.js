@@ -13,12 +13,12 @@ function handleList() {
     }, 1)
     setTimeout(() => {
         document.getElementById("child").innerHTML = '';
-    $.ajax({
-        url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc",
-        success: response => {
-            for (let index = 0; index < response.length; index++) {
-                document.getElementById("child")
-                    .innerHTML += `<div id="${response[index].symbol}" class="card" style="width: 18rem;">
+        $.ajax({
+            url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc",
+            success: response => {
+                for (let index = 0; index < response.length; index++) {
+                    document.getElementById("child")
+                        .innerHTML += `<div id="${response[index].symbol}" class="card" style="width: 18rem;">
                 <div class="card-body">
                 <div class="custom-control custom-switch">
                 <h5 class="card-title"> <img src="${response[index].image}}" />${response[index].symbol}</h5>
@@ -36,10 +36,11 @@ function handleList() {
 
               </div>`
 
-            }
-        },
-        error: err => alert(err.status)
-    });},3100);
+                }
+            },
+            error: err => alert(err.status)
+        });
+    }, 3100);
 
 }
 function handleLiveReport() {
@@ -166,9 +167,9 @@ function handleMoreInfo(event) {
     </div>
   </div>
   `
-  setTimeout(()=>{
+    setTimeout(() => {
 
-      $.ajax({
+        $.ajax({
             url: "https://api.coingecko.com/api/v3/coins/" + event.target.id,
             success: response => {
                 document.getElementById(event.target.id + event.target.id)
@@ -177,7 +178,7 @@ function handleMoreInfo(event) {
                                   ${response.market_data.current_price.ils} ₪`
             }
         });
-  },1000) 
+    }, 1000)
 
 }
 function handleAboutPage() {
@@ -201,16 +202,16 @@ function clearLocalStorage() {
     )
 }
 
-function search(){
+function search() {
     var input = document.getElementById("Search");
     var filter = input.value.toLowerCase();
     var nodes = document.getElementsByClassName('card')
-  
+
     for (i = 0; i < nodes.length; i++) {
-      if (nodes[i].innerText.toLowerCase().includes(filter)) {
-        nodes[i].style.display = "inline-block";
-      } else {
-        nodes[i].style.display = "none";
-      }
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+            nodes[i].style.display = "inline-block";
+        } else {
+            nodes[i].style.display = "none";
+        }
     }
 }
