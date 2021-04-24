@@ -1,0 +1,73 @@
+body,
+html {
+  height: 100%;
+}
+
+body {
+  /* The image used */
+  background-image: url("/assets/img/back-ground.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.child {
+    margin-left: 20px !important;
+    margin-right: 20px !important ;
+}
+#root {
+  position: relative !important;
+  width: 100%;
+  min-height: 100vh;
+}
+#space-child {
+  padding-bottom: 2.5rem;
+}
+.card {
+  display: inline-block;
+  margin: 10px;
+  height: 240px;
+}
+.custom-switch {
+  padding-left: 0 !important;
+}
+.card-title {
+  display: inline-block !important;
+  padding: 0% !important;
+}
+
+img {
+  width: 20px;
+}
+li {
+  margin: 4px;
+}
+.custom-control-input {
+  display: inline-block !important;
+  float: right;
+}
+.custom-control-label {
+  display: inline-block !important;
+  float: right;
+}
+.my-paragraph {
+  position: absolute;
+}
+.row {
+  position: relative !important;
+}
+#footer,
+.footer {
+  position: absolute !important;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  height: 2.5rem; /* Footer height */
+  padding-right: 15px !important;
+  padding-left: 15px !important ;
+}
