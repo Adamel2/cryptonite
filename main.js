@@ -1,5 +1,18 @@
 function handleList() {
     document.getElementById("child").innerHTML = '';
+    setTimeout(() => {
+        document.getElementById("child").innerHTML = `<div class="loading"><div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+             <span class="visually-hidden"></span>
+            </div>
+            <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+             <span class="visually-hidden"></span>
+            </div>
+            <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+             <span class="visually-hidden"></span>
+            </div></div>`
+    }, 1)
+    setTimeout(() => {
+        document.getElementById("child").innerHTML = '';
     $.ajax({
         url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc",
         success: response => {
@@ -11,13 +24,13 @@ function handleList() {
                 <h5 class="card-title"> <img src="${response[index].image}}" />${response[index].symbol}</h5>
                 <input type="checkbox" value="${response[index].symbol}" class="custom-control-input" id="${response[index].id}" onclick="myEvent(event)"> 
                 <label class="custom-control-label" for="${response[index].id}"></label>
-                 
+
               </div>
                   <p class="card-text">${response[index].name}</p>
                   <button id="${response[index].id}" class="btn btn-primary" onclick="handleMoreInfo(event)" type="button" 
                   data-toggle="collapse" data-target="#${response[index].id + response[index].id}" aria-expanded="false"
                    aria-controls="collapseExample"> More info</button>
-                  <p class="collapse my-paragraph" id="${response[index].id + response[index].id}">
+                  <p class="collapse my-paragraph text-danger" id="${response[index].id + response[index].id}">
                  </p>
                 </div>
 
@@ -26,7 +39,7 @@ function handleList() {
             }
         },
         error: err => alert(err.status)
-    });
+    });},3100);
 
 }
 function handleLiveReport() {
@@ -142,7 +155,7 @@ function handleLiveReport() {
             'Sorry',
             'you must choose a 5 items',
             'error'
-          )
+        )
     }
 
 }
@@ -152,9 +165,9 @@ function handleMoreInfo(event) {
         url: "https://api.coingecko.com/api/v3/coins/" + event.target.id,
         success: response => {
             document.getElementById(event.target.id + event.target.id)
-                .innerHTML = `${response.market_data.current_price.usd} USD <br>
-                              ${response.market_data.current_price.eur} EUR <br>
-                              ${response.market_data.current_price.ils} IL`
+                .innerHTML = `${response.market_data.current_price.usd} $ <br>
+                              ${response.market_data.current_price.eur} € <br>
+                              ${response.market_data.current_price.ils} ₪`
         }
     });
 
@@ -177,7 +190,7 @@ function clearLocalStorage() {
         'clear ',
         'your graph is cleared',
         'success'
-      )
+    )
 }
 
 // function search(name){

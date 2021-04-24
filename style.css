@@ -1,6 +1,10 @@
 body,
 html {
   height: 100%;
+  width: auto;
+}
+.spinner-border{
+    text-align: center;
 }
 
 body {
@@ -20,9 +24,15 @@ body {
     margin-left: 20px !important;
     margin-right: 20px !important ;
 }
+.loading {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: inline-block !important;
+    padding:0 40%;
+    margin-top: 300px;
+}
 #root {
   position: relative !important;
-  width: 100%;
   min-height: 100vh;
 }
 #space-child {
