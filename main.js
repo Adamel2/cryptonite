@@ -1,4 +1,5 @@
-function handleList() {
+function handleList(event) {
+    event.preventDefault();
     document.getElementById("child").innerHTML = '';
     setTimeout(() => {
         document.getElementById("child").innerHTML = `<div class="loading"><div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
@@ -22,7 +23,7 @@ function handleList() {
                 <div class="card-body">
                 <div class="custom-control custom-switch">
                 <h5 class="card-title"> <img src="${response[index].image}}" />${response[index].symbol}</h5>
-                <input type="checkbox" value="${response[index].symbol}" class="custom-control-input" id="${response[index].id}" onclick="myEvent(event)"> 
+                <input type="checkbox" value="${response[index].symbol}" class="custom-control-input ${response[index].symbol}" id="${response[index].id}" onclick="myEvent(event)" ${(localStorage.getItem(response[index].symbol) != null) && 'checked'} > 
                 <label class="custom-control-label" for="${response[index].id}"></label>
 
               </div>
@@ -30,11 +31,12 @@ function handleList() {
                   <button id="${response[index].id}" class="btn btn-primary" onclick="handleMoreInfo(event)" type="button" 
                   data-toggle="collapse" data-target="#${response[index].id + response[index].id}" aria-expanded="false"
                    aria-controls="collapseExample"> More info</button>
-                  <p class="collapse my-paragraph text-danger" id="${response[index].id + response[index].id}">
+                  <p class="collapse .loading-price text-danger" id="${response[index].id + response[index].id}">
                  </p>
                 </div>
 
               </div>`
+
 
                 }
             },
@@ -43,11 +45,14 @@ function handleList() {
     }, 3100);
 
 }
-function handleLiveReport() {
+function handleLiveReport(event) {
+    event.preventDefault();
     let myArray = []
     let nameColumn = []
     document.getElementById("child").innerHTML = '';
     if (localStorage.length == 5) {
+        // setInterval(() => {
+
 
         let restAPI = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${Object.keys(localStorage).toString()}&tsyms=USD&api_key=c8098bf2cfcbeea52b17bcbb6b359bfad7e38e4594e2d0fdc6e5a529b5fcec70`
         $.ajax({
@@ -65,6 +70,7 @@ function handleLiveReport() {
                     animationEnabled: true,
                     exportEnabled: true,
                     data: [
+
                         {
                             type: "spline", //change it to line, area, column, pie, etc
                             showInLegend: true,
@@ -150,6 +156,7 @@ function handleLiveReport() {
             },
             error: err => alert(err.status)
         });
+        // }, 5000);
 
     } else {
         Swal.fire(
@@ -161,7 +168,8 @@ function handleLiveReport() {
 
 }
 function handleMoreInfo(event) {
-    document.getElementById(event.target.id + event.target.id).innerHTML = `<div class=" loading-price text-center">
+    event.preventDefault();
+    document.getElementById(event.target.id + event.target.id).innerHTML = `<div class="loading-price">
     <div class="spinner-border" role="status">
       <span class="visually-hidden"></span>
     </div>
@@ -181,7 +189,8 @@ function handleMoreInfo(event) {
     }, 1000)
 
 }
-function handleAboutPage() {
+function handleAboutPage(event) {
+    event.preventDefault();
     document.getElementById("child").innerHTML = `<h1>Welcome in About Page</h1>`;
 
 }
@@ -194,6 +203,7 @@ function myEvent(event) {
     }
 }
 function clearLocalStorage() {
+    event.preventDefault();
     localStorage.clear();
     Swal.fire(
         'clear ',
@@ -202,7 +212,8 @@ function clearLocalStorage() {
     )
 }
 
-function search() {
+function search(event) {
+    event.preventDefault();
     var input = document.getElementById("Search");
     var filter = input.value.toLowerCase();
     var nodes = document.getElementsByClassName('card')

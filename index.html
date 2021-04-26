@@ -36,35 +36,35 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
                                 <button id="view-button" class="btn btn-outline-success my-2 my-sm-0"
-                                    onclick="handleList()">View</button>
+                                    onclick="handleList(event)">View</button>
                             </li>
                             <li class="nav-item dropdown">
                                 <button id="view-button" class="btn btn-outline-success my-2 my-sm-0"
-                                    onclick="handleAboutPage()">About</button>
+                                    onclick="handleAboutPage(event)">About</button>
                             </li>
                             <li class="nav-item">
                                 <button id="view-button" class="btn btn-outline-success my-2 my-sm-0"
-                                    onclick="handleLiveReport()">Live Report</button>
+                                    onclick="handleLiveReport(event)">Live Report</button>
                             </li>
 
                             <li class="nav-item">
                                 <button id="view-button" class="btn btn-outline-success my-2 my-sm-0"
-                                    onclick="clearLocalStorage()">Clear Graph</button>
+                                    onclick="clearLocalStorage(event)">Clear Graph</button>
                             </li>
 
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
                             <input id="Search" class="form-control mr-sm-2" type="search" placeholder="Search"
-                                aria-label="Search" onkeypress="search()">
+                                aria-label="Search" onkeypress="search(event)">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="button"
-                                onclick="search()">Search</button>
+                                onclick="search(event)">Search</button>
                         </form>
                     </div>
                 </nav>
             </div>
         </div>
         <div class="row child">
-            <div id="child" class="col-12">
+            <div id="child">
 
             </div>
 
