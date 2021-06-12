@@ -6,18 +6,21 @@ html {
   text-align: center;
 }
 
-body {
-  /* The image used */
+.parallax {
   background-image: url("assets/img/back-ground.jpg");
 
-  /* Full height */
-  height: 100%;
+
+  /* Set a specific height */
+  min-height: 500px;
 
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.private-img{
+    width: 200px;
 }
 .logo {
   width: 150px;

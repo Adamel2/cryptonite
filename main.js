@@ -1,8 +1,38 @@
+
+"use strict"
+
 function handleList(event) {
     event.preventDefault();
     document.getElementById("child").innerHTML = '';
-    setTimeout(() => {
-        document.getElementById("child").innerHTML = `<div class="loading"><div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
+    if (localStorage.getItem('list')) {
+
+        const list = JSON.parse(localStorage.getItem('list'));
+
+        for (let index = 0; index < list.length; index++) {
+            document.getElementById("child")
+                .innerHTML += `<div id="${list[index].symbol}" class="card" style="width: 18rem;">
+        <div class="card-body">
+        <div class="custom-control custom-switch">
+        <h5 class="card-title"> <img src="${list[index].image}}" />${list[index].symbol}</h5>
+        <input type="checkbox" value="${list[index].symbol}" class="custom-control-input ${list[index].symbol}" id="${list[index].id}" onclick="myEvent(event)" ${(localStorage.getItem(list[index].symbol) != null) && 'checked'} > 
+        <label class="custom-control-label" for="${list[index].id}"></label>
+
+      </div>
+          <p class="card-text">${list[index].name}</p>
+          <button id="${list[index].id}" class="btn btn-primary" onclick="handleMoreInfo(event)" type="button" 
+          data-toggle="collapse" data-target="#${list[index].id + list[index].id}" aria-expanded="false"
+           aria-controls="collapseExample"> More info</button>
+          <p class="collapse .loading-price text-danger" id="${list[index].id + list[index].id}">
+         </p>
+        </div>
+
+      </div>`
+
+        }
+    } else {
+        const cryptoList = [];
+        setTimeout(() => {
+            document.getElementById("child").innerHTML = `<div class="loading"><div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
              <span class="visually-hidden"></span>
             </div>
             <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
@@ -11,15 +41,17 @@ function handleList(event) {
             <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;" role="status">
              <span class="visually-hidden"></span>
             </div></div>`
-    }, 1)
-    setTimeout(() => {
-        document.getElementById("child").innerHTML = '';
-        $.ajax({
-            url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc",
-            success: response => {
-                for (let index = 0; index < response.length; index++) {
-                    document.getElementById("child")
-                        .innerHTML += `<div id="${response[index].symbol}" class="card" style="width: 18rem;">
+        }, 1)
+        setTimeout(() => {
+            document.getElementById("child").innerHTML = '';
+            $.ajax({
+                url: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc",
+                success: response => {
+                    for (let index = 0; index < response.length; index++) {
+
+                        cryptoList.push({ 'symbol': response[index].symbol, 'image': response[index].image, 'id': response[index].id, 'name': response[index].name })
+                        document.getElementById("child")
+                            .innerHTML += `<div id="${response[index].symbol}" class="card" style="width: 18rem;">
                 <div class="card-body">
                 <div class="custom-control custom-switch">
                 <h5 class="card-title"> <img src="${response[index].image}}" />${response[index].symbol}</h5>
@@ -38,160 +70,61 @@ function handleList(event) {
               </div>`
 
 
-                }
-            },
-            error: err => alert(err.status)
-        });
-    }, 3100);
+                    }
+                },
+                error: err => alert(err.status)
+            });
+        }, 3100);
+        setTimeout(() => {
 
-}
-function handleLiveReport(event) {
-    event.preventDefault();
-    let myArray = []
-    let nameColumn = []
-    document.getElementById("child").innerHTML = '';
-    if (localStorage.length == 5) {
-        // setInterval(() => {
-
-
-        let restAPI = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${Object.keys(localStorage).toString()}&tsyms=USD&api_key=c8098bf2cfcbeea52b17bcbb6b359bfad7e38e4594e2d0fdc6e5a529b5fcec70`
-        $.ajax({
-            url: restAPI,
-            success: response => {
-                for (var key in response) {
-                    myArray.push(response[key])
-                    nameColumn.push(key);
-
-                }
-                var chart = new CanvasJS.Chart("child", {
-                    title: {
-                        text: "Spline Chart with Export as Image"
-                    },
-                    animationEnabled: true,
-                    exportEnabled: true,
-                    data: [
-
-                        {
-                            type: "spline", //change it to line, area, column, pie, etc
-                            showInLegend: true,
-                            name: nameColumn[0],
-                            dataPoints: [
-                                { x: 10, y: myArray[0].USD },
-                                { x: 20, y: myArray[0].USD },
-                                { x: 30, y: myArray[0].USD },
-                                { x: 40, y: myArray[0].USD },
-                                { x: 50, y: myArray[0].USD },
-                                { x: 60, y: myArray[0].USD },
-                                { x: 70, y: myArray[0].USD },
-                                { x: 80, y: myArray[0].USD }
-                            ]
-                        },
-                        {
-                            type: "spline", //change it to line, area, column, pie, etc
-                            showInLegend: true,
-                            name: nameColumn[1],
-                            dataPoints: [
-                                { x: 10, y: myArray[1].USD },
-                                { x: 20, y: myArray[1].USD },
-                                { x: 30, y: myArray[1].USD },
-                                { x: 40, y: myArray[1].USD },
-                                { x: 50, y: myArray[1].USD },
-                                { x: 60, y: myArray[1].USD },
-                                { x: 70, y: myArray[1].USD },
-                                { x: 80, y: myArray[1].USD }
-                            ]
-                        },
-                        {
-                            type: "spline", //change it to line, area, column, pie, etc
-                            showInLegend: true,
-                            name: nameColumn[2],
-                            dataPoints: [
-                                { x: 10, y: myArray[2].USD },
-                                { x: 20, y: myArray[2].USD },
-                                { x: 30, y: myArray[2].USD },
-                                { x: 40, y: myArray[2].USD },
-                                { x: 50, y: myArray[2].USD },
-                                { x: 60, y: myArray[2].USD },
-                                { x: 70, y: myArray[2].USD },
-                                { x: 80, y: myArray[2].USD }
-                            ]
-                        },
-                        {
-                            type: "spline", //change it to line, area, column, pie, etc
-                            showInLegend: true,
-                            name: nameColumn[3],
-                            dataPoints: [
-                                { x: 10, y: myArray[3].USD },
-                                { x: 20, y: myArray[3].USD },
-                                { x: 30, y: myArray[3].USD },
-                                { x: 40, y: myArray[3].USD },
-                                { x: 50, y: myArray[3].USD },
-                                { x: 60, y: myArray[3].USD },
-                                { x: 70, y: myArray[3].USD },
-                                { x: 80, y: myArray[3].USD }
-                            ]
-                        },
-                        {
-                            type: "spline", //change it to line, area, column, pie, etc
-                            showInLegend: true,
-                            name: nameColumn[4],
-                            dataPoints: [
-                                { x: 10, y: myArray[4].USD },
-                                { x: 20, y: myArray[4].USD },
-                                { x: 30, y: myArray[4].USD },
-                                { x: 40, y: myArray[4].USD },
-                                { x: 50, y: myArray[4].USD },
-                                { x: 60, y: myArray[4].USD },
-                                { x: 70, y: myArray[4].USD },
-                                { x: 80, y: myArray[4].USD }
-                            ]
-                        }
-                    ]
-                });
-                chart.render();
-
-
-
-
-            },
-            error: err => alert(err.status)
-        });
-        // }, 5000);
-
-    } else {
-        Swal.fire(
-            'Sorry',
-            'you must choose a 5 items',
-            'error'
-        )
+            localStorage.list = JSON.stringify(cryptoList);
+        }, 5000)
     }
 
 }
+
 function handleMoreInfo(event) {
     event.preventDefault();
-    document.getElementById(event.target.id + event.target.id).innerHTML = `<div class="loading-price">
+    if (localStorage.getItem(event.target.id + event.target.id)) {
+        const item = JSON.parse(localStorage.getItem(event.target.id + event.target.id));
+        document.getElementById(event.target.id + event.target.id)
+            .innerHTML = `${item.usd} $ <br>
+                      ${item.eur} € <br>
+                      ${item.ils} ₪`
+    } else {
+        document.getElementById(event.target.id + event.target.id).innerHTML = `<div class="loading-price">
     <div class="spinner-border" role="status">
       <span class="visually-hidden"></span>
     </div>
   </div>
   `
-    setTimeout(() => {
+        setTimeout(() => {
 
-        $.ajax({
-            url: "https://api.coingecko.com/api/v3/coins/" + event.target.id,
-            success: response => {
-                document.getElementById(event.target.id + event.target.id)
-                    .innerHTML = `${response.market_data.current_price.usd} $ <br>
+            $.ajax({
+                url: "https://api.coingecko.com/api/v3/coins/" + event.target.id,
+                success: response => {
+                    document.getElementById(event.target.id + event.target.id)
+                        .innerHTML = `${response.market_data.current_price.usd} $ <br>
                                   ${response.market_data.current_price.eur} € <br>
                                   ${response.market_data.current_price.ils} ₪`
-            }
-        });
-    }, 1000)
+                    localStorage.setItem(event.target.id + event.target.id, JSON.stringify({ 'usd': response.market_data.current_price.usd, 'eur': response.market_data.current_price.eur, 'ils': response.market_data.current_price.ils }))
+                }
+            });
+        }, 1000)
+    }
 
 }
 function handleAboutPage(event) {
     event.preventDefault();
-    document.getElementById("child").innerHTML = `<h1>Welcome in About Page</h1>`;
+    document.getElementById("child").innerHTML = `<div class="d-flex flex-column align-items-center"><h1 class="bg-info ">Welcome in About Page</h1>
+    
+    <h3 class="bg-info">Name : Eldda Adham</h3>
+    <h3 class="bg-info">Email : Adamel2@ac.sce.ac.il</h3>
+    <h3 class="bg-info">Study : Software engineering</h3>
+    <h3 class="bg-info">Project description : Cryptonite coins live price</h3>
+    <img class="private-img" src='assets/img/private-photo.png'/>
+    <h2 class="bg-info">Good Day</h2>
+    </div>`;
 
 }
 
@@ -213,16 +146,18 @@ function clearLocalStorage() {
 }
 
 function search(event) {
-    event.preventDefault();
     var input = document.getElementById("Search");
     var filter = input.value.toLowerCase();
     var nodes = document.getElementsByClassName('card')
 
-    for (i = 0; i < nodes.length; i++) {
+    
+    for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].innerText.toLowerCase().includes(filter)) {
             nodes[i].style.display = "inline-block";
         } else {
             nodes[i].style.display = "none";
         }
     }
+    
+    input.value = '';
 }
